@@ -1,3 +1,12 @@
+import random
+
+
+def computer_move(board):
+    """Pick a random empty cell and return (row, col)."""
+    empty = [(r, c) for r in range(3) for c in range(3) if board[r][c] == " "]
+    return random.choice(empty)
+
+
 def print_board(board):
     """Print the current state of the 3x3 board to stdout.
 
@@ -66,17 +75,18 @@ def get_move(name, marker, board):
 
 
 def play():
-    """Run one full game of tic-tac-toe between two human players.
+    """Run one full game of tic-tac-toe, optionally against the computer.
 
-    Prompts for each player's name, initializes an empty board, prints
-    a numbered position key for reference, then alternates between
-    players X and O until one wins or the board fills and the game is
-    a draw.
+    Prompts for each player's name (or 'c' to make Player 2 the computer),
+    initializes an empty board, prints a numbered position key for reference,
+    then alternates between players X and O until one wins or the board fills.
     """
     board = [[" "] * 3 for _ in range(3)]
 
     name_x = input("Enter name for Player 1 (X): ").strip() or "Player 1"
-    name_o = input("Enter name for Player 2 (O): ").strip() or "Player 2"
+    o_input = input("Enter name for Player 2 (O), or press C for computer: ").strip()
+    cpu = o_input.lower() == "c"
+    name_o = "Computer" if cpu else (o_input or "Player 2")
     names = {"X": name_x, "O": name_o}
 
     print(f"\n{GRID_HELP}\n")
@@ -84,7 +94,11 @@ def play():
     current = "X"
     while True:
         print_board(board)
-        row, col = get_move(names[current], current, board)
+        if cpu and current == "O":
+            print(f"{name_o} is thinking...")
+            row, col = computer_move(board)
+        else:
+            row, col = get_move(names[current], current, board)
         board[row][col] = current
 
         if check_winner(board, current):
