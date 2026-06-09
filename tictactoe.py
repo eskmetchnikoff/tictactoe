@@ -107,7 +107,7 @@ def play():
             break
         if is_full(board):
             print_board(board)
-            print("It's a draw!")
+            print("Nobody wins — it's a draw!")
             break
 
         current = "O" if current == "X" else "X"
