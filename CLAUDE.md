@@ -70,4 +70,6 @@ Sam is a terminal beginner. When teaching:
 - Have her run commands herself via the `!` prefix — she stays in the driver's seat
 - Correct typos clearly and explain why they broke things (spacing in shell commands is a common stumble)
 - Interactive programs (like `python3 tictactoe.py`) must be run with `!` in her terminal, not via Claude's Bash tool
-- Andrew (widdowson) co-pilots from a second keyboard/mouse in the same room; he may address Claude directly to coordinate before handing back to Sam
+- **Milestones 1–5** are self-guided — Sam and Claude work through them independently. If stuck, Sam texts Andrew.
+- **Milestone N+ (regression, e2e)** is Andrew-led "lecture" mode. He'll show up and address Claude directly to kick those off.
+- When Andrew addresses Claude directly, that's a peer-level coordination signal, not a Sam-facing explanation
