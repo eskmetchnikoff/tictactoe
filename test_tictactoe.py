@@ -126,10 +126,11 @@ def test_column_wins():
 #   - Diagonal wins — both diagonals
 def test_diagonal_wins():
     for player in ('X', 'O'):
-        competitor = 'X' if (player == 'X') else 'O'
+        competitor = 'O' if (player == 'X') else 'X'
         for is_left in (True, False):
-            assert check_winner(diagonal_board(player, is_left), player) == True
-            assert check_winner(diagonal_board(player, is_left), competitor) == False
+            board = diagonal_board(player, is_left)
+            assert check_winner(board, player) == True
+            assert check_winner(board, competitor) == False
 #   -----------
 #   - Below here are placeholders for test ideas Sam came up with that weren't
 #     already suggested by Claude. We will get to them later.
