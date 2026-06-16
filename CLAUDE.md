@@ -46,15 +46,17 @@ Sam has practiced the following through hands-on exercises in this repo:
 Testing is taught via pytest. To run tests:
 
 ```
-pytest test_tictactoe.py -v
-pytest test_tictactoe.py -v --cov=tictactoe --cov-report=term-missing
+.venv/bin/pytest test_tictactoe.py -v
+.venv/bin/pytest test_tictactoe.py -v --cov=tictactoe --cov-report=term-missing
 ```
+
+Note: pytest runs via the project venv (`.venv/`). VSCode testing panel also uses it and emits `coverage.xml` for the Coverage Gutters extension.
 
 Milestones (pick up at the first incomplete one):
 
-1. **Coverage completion** — Tests for all easily-testable pure functions (`is_full` ✅, `check_winner`, `computer_move`). Discuss what not to test (`print_board`, `get_move` involve stdout/input). Commit when coverage is satisfying.
-2. **Test-driven bug finding** — Write a test that should pass per spec, watch it fail, identify the bug.
-3. **Fix the bug** — Red → understand → fix → green. The core feedback loop.
+1. ✅ **Coverage completion** — Tests for all easily-testable pure functions (`is_full`, `check_winner`, `computer_move`). Discussed what not to test (`print_board`, `get_move` involve stdout/input).
+2. ✅ **Test-driven bug finding** — Wrote tests that failed: dual-win board didn't raise, `computer_move` didn't raise on a full board.
+3. ✅ **Fix the bug** — Red → understand → fix → green. Fixed `check_winner` and `computer_move` to raise `ValueError` in impossible/invalid states.
 4. **New feature + tests in lockstep** — Sam writes a feature, Claude writes the matching test (or vice versa).
 5. **Refactor / changing features** — Tests as safety net; understand the difference between "implementation changed" and "behavior changed."
 
