@@ -9,3 +9,5 @@ dist/
 build/
 .eggs/
 .coverage
+.venv/
+coverage.xml

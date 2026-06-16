@@ -3,8 +3,10 @@ import random
 
 def computer_move(board):
     """Pick a random empty cell and return (row, col)."""
-    empty = [(r, c) for r in range(3) for c in range(3) if board[r][c] == " "]
-    return random.choice(empty)
+    empties = [(r, c) for r in range(3) for c in range(3) if board[r][c] == " "]
+    if empties:
+        return random.choice(empties)
+    raise ValueError
 
 
 def print_board(board):
@@ -24,18 +26,26 @@ def check_winner(board, player):
 
     Checks all three rows, all three columns, and both diagonals.
     Returns False if no winning line is found for the player.
+    Raises ValueError if the board is in an impossible state (both players win).
     """
-    for row in board:
-        if all(c == player for c in row):
+    def has_won(p):
+        for row in board:
+            if all(c == p for c in row):
+                return True
+        for col in range(3):
+            if all(board[row][col] == p for row in range(3)):
+                return True
+        if all(board[i][i] == p for i in range(3)):
             return True
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
+        if all(board[i][2 - i] == p for i in range(3)):
             return True
-    if all(board[i][i] == player for i in range(3)):
-        return True
-    if all(board[i][2 - i] == player for i in range(3)):
-        return True
-    return False
+        return False
+
+    other = 'O' if player == 'X' else 'X'
+    if has_won(player) and has_won(other):
+        raise ValueError(f"Impossible board: both {player} and {other} have won")
+
+    return has_won(player)
 
 
 def is_full(board):

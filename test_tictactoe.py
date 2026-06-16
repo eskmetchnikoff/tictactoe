@@ -131,15 +131,39 @@ def test_diagonal_wins():
             board = diagonal_board(player, is_left)
             assert check_winner(board, player) == True
             assert check_winner(board, competitor) == False
+
+#   - an impossible board (e.g. row of Xs and row of Ys simultaneously) shouldn't
+#     report a winner for either player
+def test_dual_win_raises():
+    board = [
+        ['X', 'X', 'X'],
+        ['O', 'O', 'O'],
+        [' ', ' ', ' '],
+    ]
+    with pytest.raises(ValueError):
+        check_winner(board, 'X')
+# ===========================================================================
+# computer_move
+# ===========================================================================
+
+# with an empty board, the computer picks ANY valid coordinate (on the board)
+def test_computer_move_empty_board():
+    board = empty_board()
+    row, col = computer_move(board)
+    assert 0 <= row <= 2
+    assert 0 <= col <= 2
+
+# with a full board, the computer refuses to pick
+def test_computer_move_full_board():
+    board = full_board()
+    with pytest.raises(ValueError):
+        row, col = computer_move(board)
+# with a board that only has one free space, the computer must pick that space only
+
+
 #   -----------
 #   - Below here are placeholders for test ideas Sam came up with that weren't
 #     already suggested by Claude. We will get to them later.
 #   - Adversarial: garbage in cells shouldn't cause false positives
 #     - garbage players (S, Q, None) can't win on an otherwise empty board
-#   - an impossible board (e.g. row of Xs and row of Ys simultaneously) shouldn't
-#     report a winner for either player
-# ===========================================================================
-# computer_move
-# ===========================================================================
 
-# --- Your tests go here ---
